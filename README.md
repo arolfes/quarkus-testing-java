@@ -1,4 +1,6 @@
 
+![Build and test all examples](https://github.com/arolfes/quarkus-testing-java/workflows/Build%20and%20test%20all%20examples/badge.svg)
+
 # Quarkus Testing JAVA
 
 contains [quarkus](https://quarkus.io) examples for different extensions and how to test them.
