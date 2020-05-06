@@ -26,6 +26,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+        working-directory: quarkus-jpa-java
       - name: quarkus-jpa-java
-        run: ../gradlew clean assemble test
+        run: ./gradlew clean assemble test
         working-directory: quarkus-jpa-java
