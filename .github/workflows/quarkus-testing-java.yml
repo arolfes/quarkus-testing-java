@@ -19,7 +19,7 @@ on:
       - '!**/*.md'
 jobs:
   test:
-    name: build and test ${{ matrix.working-dir }}
+    name: ${{ matrix.working-dir }}
     runs-on: ubuntu-latest
     container: openjdk:11-jdk
     strategy:
