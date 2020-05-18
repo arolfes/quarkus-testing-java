@@ -15,6 +15,10 @@ inspired by [Workshop: Cloud Native Testing](https://github.com/nt-ca-aqe/ws-clo
 * [`quarkus-mongodb-java`](quarkus-mongodb-java)
   * [repository pattern](https://martinfowler.com/eaaCatalog/repository.html) and [active record pattern](https://www.martinfowler.com/eaaCatalog/activeRecord.html)
   * mongodb testcontainer
+* [`quarkus-web-java`](quarkus-web-java)
+  * mocking
+  * rest-assured
+  * native image testing
 
 Further Reading:
 
@@ -22,3 +26,5 @@ Further Reading:
 * [Testcontainers](https://www.testcontainers.org/)
 * [JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/)
 * [flapdoodle mongodb](https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo)
+* [Mockito](https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html)
+
