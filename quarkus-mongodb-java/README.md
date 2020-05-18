@@ -20,7 +20,7 @@ For more details:
 ```
 mvn io.quarkus:quarkus-maven-plugin:1.4.2.Final:create \
     -DprojectGroupId=de.novatec.aqe.cloud \
-    -DprojectArtifactId=quarkus-mongodb-kotlin \
+    -DprojectArtifactId=quarkus-mongodb-java \
     -DprojectVersion=1.0.0-SNAPSHOT \
     -DclassName="mongodb.Application" \
     -Dextensions="mongodb-panache" \
