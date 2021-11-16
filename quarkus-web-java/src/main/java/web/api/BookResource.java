@@ -1,5 +1,6 @@
 package web.api;
 
+import org.jboss.logmanager.Logger;
 import web.business.BookRecord;
 import web.business.Library;
 
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @Consumes(MediaType.APPLICATION_JSON)
 public class BookResource {
 
+    private static final Logger LOG = Logger.getLogger(BookResource.class.getName());
     @Inject
     private Library library;
 
@@ -50,6 +52,7 @@ public class BookResource {
     @GET
     @Path("{id}")
     public Response get(@Context UriInfo uriInfo, @PathParam("id") UUID id) {
+        LOG.info("getBook uuid="+id.toString());
         return Response
                 .ok(mapBookRecord2BookApi(uriInfo, library.get(id)))
                 .build();

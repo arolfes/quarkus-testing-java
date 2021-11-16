@@ -19,6 +19,8 @@ dependencies {
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
     testImplementation 'org.assertj:assertj-core'
     testImplementation 'io.rest-assured:rest-assured'
+    testImplementation 'org.jboss.logmanager:log4j2-jboss-logmanager'
+    testImplementation 'info.novatec.testit:logrecorder-jul:1.5.0-SNAPSHOT'
 }
 
 group 'de.novatec.aqe.cloud'
@@ -40,6 +42,8 @@ java {
 
 test {
     systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+    systemProperty "quarkus.log.level", "INFO"
+
     testLogging {
         events "passed", "skipped", "failed"
     }

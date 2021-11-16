@@ -1,12 +1,16 @@
 package web;
 
+import info.novatec.testit.logrecorder.api.LogRecord;
+import info.novatec.testit.logrecorder.jul.junit5.RecordLoggers;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.Response;
+import web.api.BookResource;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -16,7 +20,8 @@ public class BookResourceIntTest {
 
     @Test
     @DisplayName("Creating a book, getAllBooks, deleteBook, getAllBooks")
-    public void testPostBookAddToLibraryAndReturnBook() {
+    @RecordLoggers(value = {BookResource.class})
+    public void testPostBookAddToLibraryAndReturnBook(LogRecord log) {
         ExtractableResponse<io.restassured.response.Response> extract = given()
                 .when()
                 .contentType(ContentType.JSON)
@@ -57,7 +62,7 @@ public class BookResourceIntTest {
                 .body("links[0].rel", is("self"))
                 .body("links[0].uri", is(uriAsString))
         ;
-
+        Assertions.assertThat(log.getMessages()).containsExactly("getBook uuid="+uuid);
         given()
                 .when()
                 .delete("/api/books/{id}", uuid)

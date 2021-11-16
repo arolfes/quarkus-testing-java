@@ -1,27 +1,33 @@
 package web;
 
+import static io.restassured.RestAssured.given;
+import static java.util.UUID.randomUUID;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.when;
+
+import info.novatec.testit.logrecorder.api.LogRecord;
+import info.novatec.testit.logrecorder.jul.junit5.RecordLoggers;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import io.restassured.http.ContentType;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.UUID;
+import javax.ws.rs.core.Response;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import web.api.BookResource;
 import web.business.Book;
 import web.business.BookRecord;
 import web.business.BookRecordNotFoundException;
 import web.business.Library;
-
-import javax.ws.rs.core.Response;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.UUID;
-
-import static io.restassured.RestAssured.given;
-import static java.util.UUID.randomUUID;
-import static org.hamcrest.Matchers.endsWith;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @QuarkusTest
 public class BookResourceTest {
@@ -83,7 +89,8 @@ public class BookResourceTest {
 
     @Test
     @DisplayName("GET /api/books/{id} - getting a book by its id returns resource representation")
-    public void testGetBookById() {
+    @RecordLoggers(value = {BookResource.class}, names = { "org.jboss.logmanager.Logger" })
+    public void testGetBookById(LogRecord log) {
         Book book = new Book("Clean Code", "9780132350884");
         UUID id = randomUUID();
         when(library.get(id)).thenReturn(new BookRecord(id, book));
@@ -99,7 +106,7 @@ public class BookResourceTest {
                 .body("links[0].rel", is("self"))
                 .body("links[0].uri", endsWith("/api/books/" + id.toString()))
         ;
-
+        Assertions.assertThat(log.getMessages()).containsExactly("getBook uuid="+id.toString());
     }
 
     @Test
